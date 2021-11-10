@@ -1,13 +1,14 @@
-const width = 28 
+const width = 28
 const grid = document.querySelector('.grid')
 const scoreDisplay = document.getElementById('score')
 let squares = []
 
-  // 0 - pac-dots
-  // 1 - wall
-  // 2 - ghost-lair
-  // 3 - power-pellet
-  // 4 - empty
+// 0 - pacdots
+// 1 - wall
+// 2 - ghost lair
+// 3 - powerpellets
+// 4 - empty
+
 const layout = [
     1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
     1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,
@@ -36,19 +37,18 @@ const layout = [
     1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,
     1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,
     1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-    1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 
+    1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
 ]
 
-
-
-// create board
+//create board
 function createBoard() {
+    //for loop 
     for (let i = 0; i < layout.length; i++) {
-         //create a square
+        //create a square 
         const square = document.createElement('div')
-        //put square in grid
+        //put square in grid 
         grid.appendChild(square)
-        //put square in  squares array
+        //put square in squares array
         squares.push(square)
 
         if (layout[i] === 0) {
@@ -58,13 +58,31 @@ function createBoard() {
         } else if (layout[i] === 3) {
             squares[i].classList.add('power-pellet')
         }
+        
     }
 }
-
 createBoard()
 
-// starting position of pacman
-let pacmanCurrentIndex = 500
+//up key - 38
+//left - 37
+//right - 39
+
+
+//starting position of pacman 
+let pacmanCurrentIndex = 490
 
 squares[pacmanCurrentIndex].classList.add('pacman')
 
+function control(e) {
+    if (e.keyCode === 40) {
+        console.log('pressed down')
+    } else if (e.keyCode === 38) {
+        console.log('pressed up') 
+    } else if (e.keyCode === 37) {
+        console.log('pressed left')
+    } else if (e.keyCode === 39) {
+        console.log('pressed right')
+    }
+}
+document.addEventListener('keyup', control)
+  
