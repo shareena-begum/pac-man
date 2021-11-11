@@ -2,6 +2,7 @@ const width = 28
 const grid = document.querySelector('.grid')
 const scoreDisplay = document.getElementById('score')
 let squares = []
+let score = 0
 
 // 0 - pacdots
 // 1 - wall
@@ -65,6 +66,7 @@ function createBoard() {
 }
 createBoard()
 
+//down - 40
 //up key - 38
 //left - 37
 //right - 39
@@ -104,6 +106,9 @@ function control(e) {
             pacmanCurrentIndex % width !== 0
             ) 
             pacmanCurrentIndex -=1
+            if (pacmanCurrentIndex === 364) {
+                pacmanCurrentIndex = 391
+            }
         break
         case 39:
         console.log('pressed right')
@@ -113,9 +118,38 @@ function control(e) {
             pacmanCurrentIndex % width < width -1
             ) 
             pacmanCurrentIndex +=1
+            if (pacmanCurrentIndex === 391) {
+                pacmanCurrentIndex = 364
+            }
         break 
     }
     squares[pacmanCurrentIndex].classList.add('pacman')
+    pacDotEaten()
 }
 document.addEventListener('keyup', control)
-  
+ 
+function pacDotEaten() {
+    if (squares[pacmanCurrentIndex].classList.contains('pac-dot')){
+        squares[pacmanCurrentIndex].classList.remove('pac-dot')
+    score++
+    scoreDisplay.innerHTML = score
+   }
+}
+
+class Ghost {
+    constructor(className, startIndex, speed) {
+        this.className = className
+        this.startIndex = startIndex
+        this.speed = speed
+    }
+}
+
+ghosts = [
+    new Ghost('blinky', 348, 250),
+    new Ghost('pinky', 376, 400),
+    new Ghost('inky', 351, 300),
+    new Ghost('clyde', 379, 500) 
+]
+
+//draw my ghosts onto my grid
+ghosts.forEach(ghost => squares[ghost.startIndex].classLisr.add(ghost.className))
